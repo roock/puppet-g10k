@@ -1,5 +1,21 @@
-require 'puppetlabs_spec_helper/rake_tasks'
+require 'rake'
+require 'puppet-lint/tasks/puppet-lint'
 require 'puppet-syntax/tasks/puppet-syntax'
-require 'puppet_blacksmith/rake_tasks' if Bundler.rubygems.find_name('puppet-blacksmith').any?
 
-PuppetLint.configuration.send('relative')
+exclude_paths = [
+  'spec/**/*',
+  'pkg/**/*',
+  'tests/**/*',
+  'vagrant/**/*'
+]
+
+Rake::Task[:lint].clear
+PuppetSyntax.exclude_paths = exclude_paths
+PuppetLint.configuration.fail_on_warnings
+PuppetLint.configuration.ignore_paths = exclude_paths
+PuppetLint.configuration.with_context = true
+PuppetLint.configuration.relative = true
+PuppetLint.configuration.send('disable_class_inherits_from_params_class')
+PuppetLint.configuration.send('disable_duplicate_params')
+
+task :default => [:lint]
