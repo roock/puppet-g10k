@@ -12,7 +12,7 @@ A module to manage g10k for linux based systems.
 
 ### Class: g10k
 
-#####`String` source_name
+####`source_name`
 The primary source's name.
 
 ####`source_remote`
