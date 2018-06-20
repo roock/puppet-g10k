@@ -1,3 +1,8 @@
+## Release 0.1.3 - 2018-06-20
+
+### Changes
+  * Updated metadata to include dependencies and missing information.
+
 ## Release 0.1.2 - 2018-06-20
 
 ### Changes
