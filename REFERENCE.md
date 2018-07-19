@@ -60,3 +60,12 @@ Default: '/var/cache/g10k'
 
 Default value: '/var/cache/g10k'
 
+##### `maxworker`
+
+Data type: `Integer`
+
+The number of Goroutines allowed to run in parallel for Git and Forge
+module resolving
+
+Default value: 50
+

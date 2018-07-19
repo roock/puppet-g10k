@@ -1,0 +1,6 @@
+<%-|
+  Integer $maxworker,
+|-%>
+#!/bin/bash
+/usr/local/bin/g10k -maxworker <%= $maxworker %> -config /etc/g10k.yaml
+

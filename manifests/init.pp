@@ -21,13 +21,18 @@
 #   The path to the cache directory.
 #   Default: '/var/cache/g10k'
 #
+# @param [Integer] maxworker
+#   The number of Goroutines allowed to run in parallel for Git and Forge
+#   module resolving
+#
 class g10k(
-  String $source_name,
-  String $source_remote,
-  String $source_basedir,
-  String $version   = '0.4.7',
-  String $user      = 'root',
-  String $cache_dir = '/var/cache/g10k',
+  String  $source_name,
+  String  $source_remote,
+  String  $source_basedir,
+  String  $version   = '0.4.7',
+  String  $user      = 'root',
+  String  $cache_dir = '/var/cache/g10k',
+  Integer $maxworker = 50,
 ){
 
   anchor{'g10k::begin':}
@@ -89,7 +94,9 @@ v${version}/${g10k_file}"
   file{'/usr/local/bin/g10k.bash':
     ensure  => file,
     mode    => '0755',
-    source  => 'puppet:///modules/g10k/g10k.bash',
+    content => epp('g10k/g10k.bash.epp',{
+      maxworker => $maxworker,
+    }),
     require => File['/etc/g10k.yaml'],
   }
 
