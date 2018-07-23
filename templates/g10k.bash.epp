@@ -1,6 +1,8 @@
 <%-|
   Integer $maxworker,
+  Integer $maxextractworker,
+  Boolean $is_quiet,
 |-%>
 #!/bin/bash
-/usr/local/bin/g10k -maxworker <%= $maxworker %> -config /etc/g10k.yaml
+/usr/local/bin/g10k -maxworker <%= $maxworker %> -maxextractworker <%= $maxextractworker %> <% if $is_quiet { %>-quiet<% } %> -config /etc/g10k.yaml
 

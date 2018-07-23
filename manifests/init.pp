@@ -25,14 +25,23 @@
 #   The number of Goroutines allowed to run in parallel for Git and Forge
 #   module resolving
 #
+# @param maxextractworker
+#   The number of Goroutines allowed to run in parallel for local Git
+#   and Forge module extracting processes (git clone, untar and gunzip)
+#
+# @param is_quiet
+#   If true, prints no output.
+#
 class g10k(
   String  $source_name,
   String  $source_remote,
   String  $source_basedir,
-  String  $version   = '0.4.7',
-  String  $user      = 'root',
-  String  $cache_dir = '/var/cache/g10k',
-  Integer $maxworker = 50,
+  String  $version          = '0.4.7',
+  String  $user             = 'root',
+  String  $cache_dir        = '/var/cache/g10k',
+  Integer $maxworker        = 50,
+  Integer $maxextractworker = 20,
+  Boolean $is_quiet         = false,
 ){
 
   anchor{'g10k::begin':}
@@ -95,7 +104,9 @@ v${version}/${g10k_file}"
     ensure  => file,
     mode    => '0755',
     content => epp('g10k/g10k.bash.epp',{
-      maxworker => $maxworker,
+      maxworker        => $maxworker,
+      maxextractworker => $maxextractworker,
+      is_quiet         => $is_quiet,
     }),
     require => File['/etc/g10k.yaml'],
   }
