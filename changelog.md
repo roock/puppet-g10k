@@ -1,3 +1,6 @@
+## Release 0.1.6 - 2018-07-23
+  * Updated reference documentation
+
 ## Release 0.1.5 - 2018-07-23
   * Added max extract worker parameter.
   * Added is quiet parameter.
