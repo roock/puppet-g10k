@@ -69,3 +69,20 @@ module resolving
 
 Default value: 50
 
+##### `maxextractworker`
+
+Data type: `Integer`
+
+The number of Goroutines allowed to run in parallel for local Git
+and Forge module extracting processes (git clone, untar and gunzip)
+
+Default value: 20
+
+##### `is_quiet`
+
+Data type: `Boolean`
+
+If true, prints no output.
+
+Default value: `false`
+
