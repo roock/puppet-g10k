@@ -10,3 +10,13 @@ A module to manage g10k for linux based systems.
 ## Limitations
 
 Debian Based Systems.
+
+## Usage
+A script is installed to /usr/local/bin called g10k.bash which includes the configuration specified in this module.
+Use g10k.bash to run g10k.
+
+### Example
+
+```
+    g10k.bash
+```

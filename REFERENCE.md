@@ -86,3 +86,11 @@ If true, prints no output.
 
 Default value: `false`
 
+##### `use_cache_fallback`
+
+Data type: `Boolean`
+
+If g10k is unable to connect to remote source, the local cache is used.
+
+Default value: `false`
+

@@ -1,14 +1,16 @@
 <%-|
-  String $cache_dir,
-  String $source_name,
-  String $source_remote,
-  String $source_basedir,
+  String  $cache_dir,
+  String  $source_name,
+  String  $source_remote,
+  String  $source_basedir,
+  Boolean $use_cache_fallback,
 |-%>
 ---
 # Puppet Controlled #
 # DO NOT MODIFY     #
 #
 :cachedir: '<%= $cache_dir %>'
+use_cache_fallback : <%= $use_cache_fallback %>
 
 # A list of git repositories to create
 sources:

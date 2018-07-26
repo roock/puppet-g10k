@@ -1,5 +1,9 @@
+## Release 0.1.7 - 2018-07-27
+  * Added use cache fallback parameter.
+  * Updated readme.
+
 ## Release 0.1.6 - 2018-07-23
-  * Updated reference documentation
+  * Updated reference documentation.
 
 ## Release 0.1.5 - 2018-07-23
   * Added max extract worker parameter.
