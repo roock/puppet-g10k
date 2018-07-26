@@ -1,3 +1,6 @@
+## Release 0.1.8 - 2018-07-27
+  * Added g10k project url to readme.
+
 ## Release 0.1.7 - 2018-07-27
   * Added use cache fallback parameter.
   * Updated readme.

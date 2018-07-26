@@ -5,7 +5,7 @@
 
 ## Description
 
-A module to manage g10k for linux based systems.
+A module to manage [g10k](https://github.com/xorpaul/g10k) for linux based systems.
 
 ## Limitations
 
