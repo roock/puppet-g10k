@@ -35,17 +35,21 @@
 # @param use_cache_fallback
 #   If g10k is unable to connect to remote source, the local cache is used.
 #
+# @param additional_settings
+#   A hash of additional g10k.yaml settings that can be configured for a source
+#
 class g10k(
   String  $source_name,
   String  $source_remote,
   String  $source_basedir,
-  String  $version            = '0.4.7',
-  String  $user               = 'root',
-  String  $cache_dir          = '/var/cache/g10k',
-  Integer $maxworker          = 50,
-  Integer $maxextractworker   = 20,
-  Boolean $is_quiet           = false,
-  Boolean $use_cache_fallback = false,
+  String  $version             = '0.4.7',
+  String  $user                = 'root',
+  String  $cache_dir           = '/var/cache/g10k',
+  Integer $maxworker           = 50,
+  Integer $maxextractworker    = 20,
+  Boolean $is_quiet            = false,
+  Boolean $use_cache_fallback  = false,
+  Hash    $additional_settings = {},
 ){
 
   anchor{'g10k::begin':}
@@ -96,11 +100,12 @@ v${version}/${g10k_file}"
   file{'/etc/g10k.yaml':
     ensure  => file,
     content => epp('g10k/g10k.yaml.epp',{
-      cache_dir          => $cache_dir,
-      source_name        => $source_name,
-      source_remote      => $source_remote,
-      source_basedir     => $source_basedir,
-      use_cache_fallback => $use_cache_fallback,
+      cache_dir           => $cache_dir,
+      source_name         => $source_name,
+      source_remote       => $source_remote,
+      source_basedir      => $source_basedir,
+      use_cache_fallback  => $use_cache_fallback,
+      additional_settings => $additional_settings,
     }),
     require => File[$cache_dir],
   }
