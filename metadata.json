@@ -1,6 +1,6 @@
 {
   "name": "landcareresearch-g10k",
-  "version": "0.1.0",
+  "version": "0.1.9",
   "author": "landcareresearch",
   "summary": "Puppet Module for deploying g10k",
   "license": "GPL-3.0+",

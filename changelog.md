@@ -1,3 +1,9 @@
+## Release 0.1.10 - 2018-08-09
+ * Added ability to pass a web proxy for archive to use to access the internet (optional)
+
+## Release 0.1.9 - 2018-08-01
+ * Added ability to pass `additional_settings` to for a source.
+
 ## Release 0.1.8 - 2018-07-27
   * Added g10k project url to readme.
 
