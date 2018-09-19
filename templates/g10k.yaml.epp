@@ -5,6 +5,7 @@
   String  $source_basedir,
   Boolean $use_cache_fallback,
   Hash[String, String] $additional_settings,
+  Array[String] $postrun,
 |-%>
 ---
 # Puppet Controlled #
@@ -21,3 +22,10 @@ sources:
     <% $additional_settings.keys.sort.each |$setting| { -%>
     <%= $setting %> : <%= $additional_settings[$setting] %>
     <% } -%>
+
+<% if ! empty($postrun) { -%>
+postrun:
+<% $postrun.each |$item| { -%>
+  - <%= $item %>
+<% } -%>
+<% } -%>

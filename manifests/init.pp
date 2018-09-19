@@ -41,6 +41,10 @@
 # @param [String] proxy_server
 #   Web proxy if needed.
 #   Default: undef
+#
+# @param [Array[String]] postrun
+#   Array of strings to be set as the postrun command.
+#   Default: []
 
 class g10k(
   String  $source_name,
@@ -55,6 +59,7 @@ class g10k(
   Boolean $is_quiet            = false,
   Boolean $use_cache_fallback  = false,
   Hash    $additional_settings = {},
+  Array[String] $postrun       = []
 ){
 
   anchor{'g10k::begin':}
@@ -112,6 +117,7 @@ v${version}/${g10k_file}"
       source_basedir      => $source_basedir,
       use_cache_fallback  => $use_cache_fallback,
       additional_settings => $additional_settings,
+      postrun             => $postrun,
     }),
     require => File[$cache_dir],
   }
