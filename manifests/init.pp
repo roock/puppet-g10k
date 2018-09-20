@@ -73,9 +73,8 @@ class g10k(
 #wget -P /tmp $G10K_URL
 #unzip /tmp/${G10K_FILE}
 
-  $g10k_file = 'g10k-linux-amd64.zip'
-  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/\
-v${version}/${g10k_file}"
+  $g10k_file = "g10k-${version}-linux-amd64.zip"
+  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
 
   # manage dependencies
   $required_packages = ['wget','unzip','git']
