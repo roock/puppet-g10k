@@ -4,7 +4,7 @@
   String  $source_remote,
   String  $source_basedir,
   Boolean $use_cache_fallback,
-  Hash[String, String] $additional_settings,
+  Optional[Hash[String, String]] $additional_settings = undef,
 |-%>
 ---
 # Puppet Controlled #
@@ -18,6 +18,8 @@ sources:
     <%= $source_name %>:
         remote  : <%= $source_remote %>
         basedir : <%= $source_basedir %>
-    <% $additional_settings.keys.sort.each |$setting| { -%>
-    <%= $setting %> : <%= $additional_settings[$setting] %>
-    <% } -%>
+    <%- if $additional_settings { -%>
+    <%- $additional_settings.keys.sort.each |$setting| { -%>
+        <%= $setting %> : <%= $additional_settings[$setting] %>
+    <%- } -%>
+    <%- } -%>

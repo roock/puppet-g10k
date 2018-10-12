@@ -36,32 +36,23 @@
 #   If g10k is unable to connect to remote source, the local cache is used.
 #
 # @param additional_settings
-#   A hash of additional g10k.yaml settings that can be configured for a source
+#   A hash of additional g10k.yaml settings that can be configured for a source.
 #
 class g10k(
-  String  $source_name,
-  String  $source_remote,
-  String  $source_basedir,
-  String  $version             = '0.4.7',
-  String  $user                = 'root',
-  String  $cache_dir           = '/var/cache/g10k',
-  Integer $maxworker           = 50,
-  Integer $maxextractworker    = 20,
-  Boolean $is_quiet            = false,
-  Boolean $use_cache_fallback  = false,
-  Hash    $additional_settings = {},
+  String         $source_name,
+  String         $source_remote,
+  String         $source_basedir,
+  String         $version             = '0.4.7',
+  String         $user                = 'root',
+  String         $cache_dir           = '/var/cache/g10k',
+  Integer        $maxworker           = 50,
+  Integer        $maxextractworker    = 20,
+  Boolean        $is_quiet            = false,
+  Boolean        $use_cache_fallback  = false,
+  Optional[Hash] $additional_settings = undef,
 ){
 
   anchor{'g10k::begin':}
-
-#CACHEDIR="puppet/g10k_cache"
-#PUPPETFILE="puppet-control/Puppetfile"
-#./g10k -cachedir=$CACHEDIR -puppetfile -puppetfilelocation $PUPPETFILE -moduledir puppet/modules
-
-#G10K_FILE=g10k-linux-amd64.zip
-#G10K_URL=https://github.com/xorpaul/g10k/releases/download/v${G10K_VERSION}/${G10K_FILE}
-#wget -P /tmp $G10K_URL
-#unzip /tmp/${G10K_FILE}
 
   $g10k_file = 'g10k-linux-amd64.zip'
   $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/\
