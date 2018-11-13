@@ -58,7 +58,7 @@ class g10k(
   Boolean          $use_cache_fallback  = false,
   Optional[Hash]   $additional_settings = undef,
   Optional[String] $proxy_server        = undef,
-  Array[String]    $postrun       = []
+  Array[String]    $postrun             = []
 ){
 
   anchor{'g10k::begin':}
