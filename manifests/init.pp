@@ -1,27 +1,27 @@
 # @summary Manages installing and configuring g10k
 #
-# @param [String] source_name
+# @param source_name
 #   The primary source's name.
 #
-# @param [String] source_remote
+# @param source_remote
 #   The primary source's remote url.
 #
-# @param [String] source_basedir
+# @param source_basedir
 #   The base directory to use for installing components.
 #
-# @param [String] version
+# @param version
 #   The version of g10k to install.
 #   Default: '0.4.7'
 #
-# @param [String] user
+# @param user
 #   The user to execute the g10k command.
 #   Default: 'root'
 #
-# @param [String] cache_dir
+# @param cache_dir
 #   The path to the cache directory.
 #   Default: '/var/cache/g10k'
 #
-# @param [Integer] maxworker
+# @param maxworker
 #   The number of Goroutines allowed to run in parallel for Git and Forge
 #   module resolving
 #
@@ -36,45 +36,36 @@
 #   If g10k is unable to connect to remote source, the local cache is used.
 #
 # @param additional_settings
-#   A hash of additional g10k.yaml settings that can be configured for a source
+#   A hash of additional g10k.yaml settings that can be configured for a source.
 #
-# @param [String] proxy_server
-#   Web proxy if needed.
-#   Default: undef
+# @param proxy_server
+#   Web proxy for downloading g10k.
 #
 # @param [Array[String]] postrun
 #   Array of strings to be set as the postrun command.
 #   Default: []
 
 class g10k(
-  String  $source_name,
-  String  $source_remote,
-  String  $source_basedir,
-  String  $version             = '0.4.7',
-  String  $user                = 'root',
-  String  $cache_dir           = '/var/cache/g10k',
-  String  $proxy_server        = undef,
-  Integer $maxworker           = 50,
-  Integer $maxextractworker    = 20,
-  Boolean $is_quiet            = false,
-  Boolean $use_cache_fallback  = false,
-  Hash    $additional_settings = {},
-  Array[String] $postrun       = []
+  String           $source_name,
+  String           $source_remote,
+  String           $source_basedir,
+  String           $version             = '0.4.7',
+  String           $user                = 'root',
+  String           $cache_dir           = '/var/cache/g10k',
+  Integer          $maxworker           = 50,
+  Integer          $maxextractworker    = 20,
+  Boolean          $is_quiet            = false,
+  Boolean          $use_cache_fallback  = false,
+  Optional[Hash]   $additional_settings = undef,
+  Optional[String] $proxy_server        = undef,
+  Array[String]    $postrun       = []
 ){
 
   anchor{'g10k::begin':}
 
-#CACHEDIR="puppet/g10k_cache"
-#PUPPETFILE="puppet-control/Puppetfile"
-#./g10k -cachedir=$CACHEDIR -puppetfile -puppetfilelocation $PUPPETFILE -moduledir puppet/modules
-
-#G10K_FILE=g10k-linux-amd64.zip
-#G10K_URL=https://github.com/xorpaul/g10k/releases/download/v${G10K_VERSION}/${G10K_FILE}
-#wget -P /tmp $G10K_URL
-#unzip /tmp/${G10K_FILE}
-
   $g10k_file = "g10k-${version}-linux-amd64.zip"
-  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
+  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/\
+v${version}/${g10k_file}"
 
   # manage dependencies
   $required_packages = ['wget','unzip','git']

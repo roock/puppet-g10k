@@ -94,3 +94,19 @@ If g10k is unable to connect to remote source, the local cache is used.
 
 Default value: `false`
 
+##### `additional_settings`
+
+Data type: `Optional[Hash]`
+
+A hash of additional g10k.yaml settings that can be configured for a source.
+
+Default value: `undef`
+
+##### `proxy_server`
+
+Data type: `Optional[String]`
+
+Web proxy for downloading g10k.
+
+Default value: `undef`
+
