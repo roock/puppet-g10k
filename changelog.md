@@ -1,3 +1,8 @@
+## Release 0.1.10 - 2018-12-20
+  - Add support for setting postrun in config file
+  - Add version to archive filename so new versions are downloaded
+  - Set default version to 0.5.6
+
 ## Release 0.1.9 - 2018-10-12
   - Added ability to pass a web proxy for archive to use to access the internet (optional).
   - Added ability to pass `additional_settings` for a source.

@@ -41,15 +41,14 @@
 # @param proxy_server
 #   Web proxy for downloading g10k.
 #
-# @param [Array[String]] postrun
+# @param postrun
 #   Array of strings to be set as the postrun command.
-#   Default: []
-
+#
 class g10k(
   String           $source_name,
   String           $source_remote,
   String           $source_basedir,
-  String           $version             = '0.4.7',
+  String           $version             = '0.5.6',
   String           $user                = 'root',
   String           $cache_dir           = '/var/cache/g10k',
   Integer          $maxworker           = 50,
@@ -64,8 +63,7 @@ class g10k(
   anchor{'g10k::begin':}
 
   $g10k_file = "g10k-${version}-linux-amd64.zip"
-  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/\
-v${version}/${g10k_file}"
+  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
 
   # manage dependencies
   $required_packages = ['wget','unzip','git']
@@ -79,8 +77,7 @@ v${version}/${g10k_file}"
     extract      => true,
     extract_path => '/usr/local/bin',
     cleanup      => true,
-    require      => [Anchor['g10k::begin'],
-                    Package[$required_packages]],
+    require      => [Anchor['g10k::begin'], Package[$required_packages]],
   }
 
   # ensure the file has executable permissions
