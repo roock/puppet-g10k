@@ -44,6 +44,9 @@
 # @param postrun
 #   Array of strings to be set as the postrun command.
 #
+# @param manage_git_package
+#   If this class should manage the git package.
+#
 class g10k(
   String           $source_name,
   String           $source_remote,
@@ -57,16 +60,21 @@ class g10k(
   Boolean          $use_cache_fallback  = false,
   Optional[Hash]   $additional_settings = undef,
   Optional[String] $proxy_server        = undef,
-  Array[String]    $postrun             = []
+  Array[String]    $postrun             = [],
+  Boolean          $manage_git_package  = true,
 ){
 
-  anchor{'g10k::begin':}
 
   $g10k_file = "g10k-${version}-linux-amd64.zip"
   $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
 
   # manage dependencies
-  $required_packages = ['wget','unzip','git']
+  if $manage_git_package{
+    $required_packages = ['wget','unzip','git']
+  }else{
+    $required_packages = ['wget','unzip']
+  }
+
   ensure_packages($required_packages)
   include archive
 
@@ -77,7 +85,6 @@ class g10k(
     extract      => true,
     extract_path => '/usr/local/bin',
     cleanup      => true,
-    require      => [Anchor['g10k::begin'], Package[$required_packages]],
   }
 
   # ensure the file has executable permissions
@@ -118,9 +125,5 @@ class g10k(
       is_quiet         => $is_quiet,
     }),
     require => File['/etc/g10k.yaml'],
-  }
-
-  anchor{'g10k::end':
-    require => File['/usr/local/bin/g10k.bash'],
   }
 }

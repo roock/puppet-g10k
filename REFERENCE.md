@@ -120,3 +120,11 @@ Array of strings to be set as the postrun command.
 
 Default value: []
 
+##### `manage_git_package`
+
+Data type: `Boolean`
+
+If this class should manage the git package.
+
+Default value: `true`
+

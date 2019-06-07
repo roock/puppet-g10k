@@ -1,3 +1,7 @@
+## Release 0.2.0 - 2019-06-07
+  - Removed anchor pattern.
+  - Added parameter to manage required git package.
+
 ## Release 0.1.10 - 2018-12-20
   - Add support for setting postrun in config file
   - Add version to archive filename so new versions are downloaded
