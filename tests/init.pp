@@ -12,7 +12,3 @@ class{'g10k':
   use_cache_fallback         => true,
   deployment_purge_whitelist => ['.resource_types'],
 }
-
-      #purge_whitelist   :
-      #  # Allows different versions of modules that use ruby defined types to exist in different environments.
-      #  - '.resource_types'

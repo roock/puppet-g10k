@@ -1,5 +1,9 @@
 # g10k puppet module changelog
 
+## Release 0.3.1 - 2020-01-08
+
+- Added a license file.
+
 ## Release 0.3.0 - 2020-01-08
 
 - Added deploy configuration parameters.
