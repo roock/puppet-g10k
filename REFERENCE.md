@@ -98,9 +98,36 @@ Default value: `false`
 
 ##### `additional_settings`
 
-Data type: `Optional[Hash]`
+Data type: `Optional[Hash[String, String]]`
 
 A hash of additional g10k.yaml settings that can be configured for a source.
+
+Default value: `undef`
+
+##### `purge_levels`
+
+Data type: `Optional[Array[String]]`
+
+Setting controls how aggressively g10k will purge unmanaged content during a deployment.
+The valid string options for the list are 'deployment', 'environment', and 'puppetfile'.
+@see https://github.com/puppetlabs/r10k/blob/master/doc/dynamic-environments/configuration.mkd#purge_levels
+
+Default value: `undef`
+
+##### `purge_whitelist`
+
+Data type: `Optional[Array[String]]`
+
+Exempts the specified filename patters from being purged.
+@see https://github.com/puppetlabs/r10k/blob/master/doc/dynamic-environments/configuration.mkd#purge_whitelist
+
+Default value: `undef`
+
+##### `deployment_purge_whitelist`
+
+Data type: `Optional[Array[String]]`
+
+As an additional setting, you can also whitelist Puppet environments.
 
 Default value: `undef`
 
