@@ -38,6 +38,18 @@
 # @param additional_settings
 #   A hash of additional g10k.yaml settings that can be configured for a source.
 #
+# @param purge_levels
+#   Setting controls how aggressively g10k will purge unmanaged content during a deployment.
+#   The valid string options for the list are 'deployment', 'environment', and 'puppetfile'.
+#   @see https://github.com/puppetlabs/r10k/blob/master/doc/dynamic-environments/configuration.mkd#purge_levels
+#
+# @param purge_whitelist
+#   Exempts the specified filename patters from being purged.
+#   @see https://github.com/puppetlabs/r10k/blob/master/doc/dynamic-environments/configuration.mkd#purge_whitelist
+#
+# @param deployment_purge_whitelist
+#   As an additional setting, you can also whitelist Puppet environments.
+#
 # @param proxy_server
 #   Web proxy for downloading g10k.
 #
@@ -48,22 +60,24 @@
 #   If this class should manage the git package.
 #
 class g10k(
-  String           $source_name,
-  String           $source_remote,
-  String           $source_basedir,
-  String           $version             = '0.5.6',
-  String           $user                = 'root',
-  String           $cache_dir           = '/var/cache/g10k',
-  Integer          $maxworker           = 50,
-  Integer          $maxextractworker    = 20,
-  Boolean          $is_quiet            = false,
-  Boolean          $use_cache_fallback  = false,
-  Optional[Hash]   $additional_settings = undef,
-  Optional[String] $proxy_server        = undef,
-  Array[String]    $postrun             = [],
-  Boolean          $manage_git_package  = true,
+  String                         $source_name,
+  String                         $source_remote,
+  String                         $source_basedir,
+  String                         $version                    = '0.5.6',
+  String                         $user                       = 'root',
+  String                         $cache_dir                  = '/var/cache/g10k',
+  Integer                        $maxworker                  = 50,
+  Integer                        $maxextractworker           = 20,
+  Boolean                        $is_quiet                   = false,
+  Boolean                        $use_cache_fallback         = false,
+  Optional[Hash[String, String]] $additional_settings        = undef,
+  Optional[Array[String]]        $purge_levels               = undef,
+  Optional[Array[String]]        $purge_whitelist            = undef,
+  Optional[Array[String]]        $deployment_purge_whitelist = undef,
+  Optional[String]               $proxy_server               = undef,
+  Array[String]                  $postrun                    = [],
+  Boolean                        $manage_git_package         = true,
 ){
-
 
   $g10k_file = "g10k-${version}-linux-amd64.zip"
   $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
@@ -105,13 +119,16 @@ class g10k(
   file{'/etc/g10k.yaml':
     ensure  => file,
     content => epp('g10k/g10k.yaml.epp',{
-      cache_dir           => $cache_dir,
-      source_name         => $source_name,
-      source_remote       => $source_remote,
-      source_basedir      => $source_basedir,
-      use_cache_fallback  => $use_cache_fallback,
-      additional_settings => $additional_settings,
-      postrun             => $postrun,
+      cache_dir                  => $cache_dir,
+      source_name                => $source_name,
+      source_remote              => $source_remote,
+      source_basedir             => $source_basedir,
+      use_cache_fallback         => $use_cache_fallback,
+      additional_settings        => $additional_settings,
+      purge_levels               => $purge_levels,
+      purge_whitelist            => $purge_whitelist,
+      deployment_purge_whitelist => $deployment_purge_whitelist,
+      postrun                    => $postrun,
     }),
     require => File[$cache_dir],
   }

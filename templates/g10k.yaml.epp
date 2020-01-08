@@ -5,7 +5,10 @@
   String                         $source_basedir,
   Boolean                        $use_cache_fallback,
   Array[String]                  $postrun,
-  Optional[Hash[String, String]] $additional_settings = undef,
+  Optional[Hash[String, String]] $additional_settings        = undef,
+  Optional[Array[String]]        $purge_levels               = undef,
+  Optional[Array[String]]        $purge_whitelist            = undef,
+  Optional[Array[String]]        $deployment_purge_whitelist = undef,
 |-%>
 ---
 # Puppet Controlled #
@@ -13,6 +16,28 @@
 #
 :cachedir: '<%= $cache_dir %>'
 use_cache_fallback : <%= $use_cache_fallback %>
+
+<% if $purge_levels or $purge_whitelist or $deployment_purge_whitelist { -%>
+deploy :
+<% if $purge_levels { -%>
+  purge_levels :
+  <% $purge_levels.each |$item | { -%>
+    - '<%= $item %>'
+  <% } -%>
+<% } -%>
+<% if $purge_whitelist { -%>
+  purge_whitelist :
+  <% $purge_whitelist.each |$item | { -%>
+    - '<%= $item %>'
+  <% } -%>
+<% } -%>
+<% if $deployment_purge_whitelist { -%>
+  deployment_purge_whitelist :
+  <% $deployment_purge_whitelist.each |$item | { -%>
+    - '<%= $item %>'
+  <% } -%>
+<% } -%>
+<% } -%>
 
 # A list of git repositories to create
 sources:

@@ -12,11 +12,12 @@ A module to manage [g10k](https://github.com/xorpaul/g10k) for linux based syste
 Debian Based Systems.
 
 ## Usage
+
 A script is installed to /usr/local/bin called g10k.bash which includes the configuration specified in this module.
 Use g10k.bash to run g10k.
 
 ### Example
 
-```
+```bash
     g10k.bash
 ```
