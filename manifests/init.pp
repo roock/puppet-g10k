@@ -57,7 +57,7 @@
 #   Array of strings to be set as the postrun command.
 #   The following 3 variables are available to use as arguments.
 #
-# @use_generate_types
+# @param use_generate_types
 #   Installs a postrun script that calls 'puppet generate types --environment $env' for every environment that was updated.
 #   Overwrites and replaces the postrun parameter.
 #

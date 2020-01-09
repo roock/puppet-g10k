@@ -1,5 +1,8 @@
 # g10k puppet module changelog
 
+## Release 0.3.3 - 2020-01-09
+- Fixed a bug in commenting for use_generate_types parameter.
+
 ## Release 0.3.2 - 2020-01-09
 
 - Added a new parameter that enables environment isolation.

@@ -148,6 +148,15 @@ The following 3 variables are available to use as arguments.
 
 Default value: `undef`
 
+##### `use_generate_types`
+
+Data type: `Boolean`
+
+Installs a postrun script that calls 'puppet generate types --environment $env' for every environment that was updated.
+Overwrites and replaces the postrun parameter.
+
+Default value: `false`
+
 ##### `manage_git_package`
 
 Data type: `Boolean`
@@ -155,12 +164,4 @@ Data type: `Boolean`
 If this class should manage the git package.
 
 Default value: `true`
-
-##### `use_generate_types`
-
-Data type: `Boolean`
-
-
-
-Default value: `false`
 
