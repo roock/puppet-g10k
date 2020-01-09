@@ -141,11 +141,12 @@ Default value: `undef`
 
 ##### `postrun`
 
-Data type: `Array[String]`
+Data type: `Optional[Array[String]]`
 
 Array of strings to be set as the postrun command.
+The following 3 variables are available to use as arguments.
 
-Default value: []
+Default value: `undef`
 
 ##### `manage_git_package`
 
@@ -154,4 +155,12 @@ Data type: `Boolean`
 If this class should manage the git package.
 
 Default value: `true`
+
+##### `use_generate_types`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
 
