@@ -55,6 +55,11 @@
 #
 # @param postrun
 #   Array of strings to be set as the postrun command.
+#   The following 3 variables are available to use as arguments.
+#
+# @use_generate_types
+#   Installs a postrun script that calls 'puppet generate types --environment $env' for every environment that was updated.
+#   Overwrites and replaces the postrun parameter.
 #
 # @param manage_git_package
 #   If this class should manage the git package.
@@ -75,7 +80,8 @@ class g10k(
   Optional[Array[String]]        $purge_whitelist            = undef,
   Optional[Array[String]]        $deployment_purge_whitelist = undef,
   Optional[String]               $proxy_server               = undef,
-  Array[String]                  $postrun                    = [],
+  Optional[Array[String]]        $postrun                    = undef,
+  Boolean                        $use_generate_types         = false,
   Boolean                        $manage_git_package         = true,
 ){
 
@@ -116,6 +122,22 @@ class g10k(
     require => File['/usr/local/bin/g10k'],
   }
 
+  if $use_generate_types {
+    file{'/usr/local/bin/g10k_generate_types.bash':
+      ensure  => file,
+      mode    => '0755',
+      source  => 'puppet:///modules/g10k/generate_types.bash',
+      require => File[$cache_dir],
+      before  => File['/etc/g10k.yaml'],
+    }
+  }else{
+    file{'/usr/local/bin/g10k_generate_types.bash':
+      ensure  => absent,
+      require => File[$cache_dir],
+      before  => File['/etc/g10k.yaml'],
+    }
+  }
+
   file{'/etc/g10k.yaml':
     ensure  => file,
     content => epp('g10k/g10k.yaml.epp',{
@@ -124,6 +146,7 @@ class g10k(
       source_remote              => $source_remote,
       source_basedir             => $source_basedir,
       use_cache_fallback         => $use_cache_fallback,
+      use_generate_types         => $use_generate_types,
       additional_settings        => $additional_settings,
       purge_levels               => $purge_levels,
       purge_whitelist            => $purge_whitelist,

@@ -1,5 +1,10 @@
 # g10k puppet module changelog
 
+## Release 0.3.2 - 2020-01-09
+
+- Added a new parameter that enables environment isolation.
+- Changed default value for postrun making it undef and setting it as optional.
+
 ## Release 0.3.1 - 2020-01-08
 
 - Added a license file.

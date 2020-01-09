@@ -11,4 +11,5 @@ class{'g10k':
   is_quiet                   => false,
   use_cache_fallback         => true,
   deployment_purge_whitelist => ['.resource_types'],
+  use_generate_types         => true,
 }

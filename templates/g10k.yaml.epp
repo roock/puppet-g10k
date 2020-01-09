@@ -4,7 +4,8 @@
   String                         $source_remote,
   String                         $source_basedir,
   Boolean                        $use_cache_fallback,
-  Array[String]                  $postrun,
+  Boolean                        $use_generate_types         = false,
+  Optional[Array[String]]        $postrun                    = undef,
   Optional[Hash[String, String]] $additional_settings        = undef,
   Optional[Array[String]]        $purge_levels               = undef,
   Optional[Array[String]]        $purge_whitelist            = undef,
@@ -50,6 +51,18 @@ sources:
     <%- } -%>
     <%- } -%>
 
+<% if $use_generate_types { -%>
+postrun: 
+  - '/usr/local/bin/g10k_generate_types.bash'
+  - '$modifiedenvs'
+
+<% } elsif $postrun { -%>
+postrun:
+<% $postrun.each |$item| { -%>
+  - <%= $item %>
+<% } -%>
+
+<% } -%>
 <% if ! empty($postrun) { -%>
 postrun:
 <% $postrun.each |$item| { -%>
