@@ -3,7 +3,6 @@
 ## Release 6.0.0 - 2021-02-23
 
 - Added Ubuntu 20.04 support.
-- Added support for setting the base forge URL.
 - Updated pdk for puppet 6 support.
 - Changed the versioning to coinside with supported puppet version.
 

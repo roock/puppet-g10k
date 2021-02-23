@@ -64,9 +64,6 @@
 # @param manage_git_package
 #   If this class should manage the git package.
 #
-# @param forege_baseurl
-#   Set the base URL different than the default puppetforge.
-#
 class g10k(
   String                         $source_name,
   String                         $source_remote,
@@ -86,7 +83,6 @@ class g10k(
   Optional[Array[String]]        $postrun                    = undef,
   Boolean                        $use_generate_types         = false,
   Boolean                        $manage_git_package         = true,
-  Optional[String]               $forge_baseurl              = undef,
 ){
 
   $g10k_file = "g10k-${version}-linux-amd64.zip"
@@ -156,7 +152,6 @@ class g10k(
       purge_whitelist            => $purge_whitelist,
       deployment_purge_whitelist => $deployment_purge_whitelist,
       postrun                    => $postrun,
-      forge_baseurl              => $forge_baseurl,
     }),
     require => File[$cache_dir],
   }
