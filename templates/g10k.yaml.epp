@@ -10,6 +10,7 @@
   Optional[Array[String]]        $purge_levels               = undef,
   Optional[Array[String]]        $purge_whitelist            = undef,
   Optional[Array[String]]        $deployment_purge_whitelist = undef,
+  Optional[String]               $forge_baseurl              = undef,
 |-%>
 ---
 # Puppet Controlled #
@@ -17,6 +18,10 @@
 #
 :cachedir: '<%= $cache_dir %>'
 use_cache_fallback : <%= $use_cache_fallback %>
+
+<% if $forge_baseurl { -%>
+forge.baseUrl : <%= $forge_baseurl %>
+<% } -%>
 
 <% if $purge_levels or $purge_whitelist or $deployment_purge_whitelist { -%>
 deploy :

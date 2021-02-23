@@ -1,0 +1,37 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+require './config/testos.rb'
+include MyVars
+
+Vagrant.configure("2") do |config|
+
+  # disable b/c of centos
+  config.ssh.insert_key = false
+
+  # set the boxes dynamically
+  config.vm.box     = OS
+  
+  # system memory
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 2048
+  end
+
+  # default ip address
+  config.vm.network "private_network", ip: "192.168.33.10"
+
+  # setup puppet
+  config.vm.provision :shell, :path => PUPPET
+
+  # finish as there is an issue with installing ckan via apt due to apache needing to be 'off' before nginx can be installed
+  config.vm.provision :shell, :path => "scripts/finish.sh"
+
+  # puppet configuration
+  config.vm.provision "puppet" do |puppet|
+    puppet.module_path      = ["puppet/modules/","../../"]
+    puppet.environment_path = "puppet"
+    puppet.environment      = "test"
+    puppet.manifests_path = "../tests"
+    puppet.manifest_file  = "init.pp"
+  end
+
+end

@@ -1,6 +1,14 @@
 # g10k puppet module changelog
 
+## Release 6.0.0 - 2021-02-23
+
+- Added Ubuntu 20.04 support.
+- Added support for setting the base forge URL.
+- Updated pdk for puppet 6 support.
+- Changed the versioning to coinside with supported puppet version.
+
 ## Release 0.3.3 - 2020-01-09
+
 - Fixed a bug in commenting for use_generate_types parameter.
 
 ## Release 0.3.2 - 2020-01-09
