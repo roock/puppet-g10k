@@ -7,5 +7,5 @@ if [ $# -eq 0 ]; then
 fi
 
 for argument in "$@"; do
-  /opt/puppetlabs/bin/puppet generate types --environment ${argument}" | tee -a ${LOGFILE}
+  /opt/puppetlabs/bin/puppet generate types --environment "${argument}" | tee -a ${LOGFILE}
 done
