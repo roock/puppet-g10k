@@ -1,5 +1,4 @@
-
-class{'g10k':
+class { 'g10k':
   version                    => '0.8.9',
   cache_dir                  => '/var/cache/g10k',
   source_name                => 'example',

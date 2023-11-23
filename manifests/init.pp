@@ -64,7 +64,7 @@
 # @param manage_git_package
 #   If this class should manage the git package.
 #
-class g10k(
+class g10k (
   String                         $source_name,
   String                         $source_remote,
   String                         $source_basedir,
@@ -83,15 +83,14 @@ class g10k(
   Optional[Array[String]]        $postrun                    = undef,
   Boolean                        $use_generate_types         = false,
   Boolean                        $manage_git_package         = true,
-){
-
+) {
   $g10k_file = "g10k-${version}-linux-amd64.zip"
   $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
 
   # manage dependencies
-  if $manage_git_package{
+  if $manage_git_package {
     $required_packages = ['wget','unzip','git']
-  }else{
+  } else {
     $required_packages = ['wget','unzip']
   }
 
@@ -99,23 +98,23 @@ class g10k(
   include archive
 
   # download and install g10k
-  archive{"/usr/local/share/g10k/${g10k_file}":
+  archive { "/usr/local/share/g10k/${g10k_file}":
     source       => $g10k_url,
-    proxy_server =>  $proxy_server,
+    proxy_server => $proxy_server,
     extract      => true,
     extract_path => '/usr/local/bin',
     cleanup      => true,
   }
 
   # ensure the file has executable permissions
-  file{'/usr/local/bin/g10k':
+  file { '/usr/local/bin/g10k':
     ensure  => file,
     mode    => '0755',
     require => Archive["/usr/local/share/g10k/${g10k_file}"],
   }
 
   # manage cache directory
-  file{$cache_dir:
+  file { $cache_dir:
     ensure  => directory,
     owner   => $user,
     mode    => '0775',
@@ -123,46 +122,46 @@ class g10k(
   }
 
   if $use_generate_types {
-    file{'/usr/local/bin/g10k_generate_types.bash':
+    file { '/usr/local/bin/g10k_generate_types.bash':
       ensure  => file,
       mode    => '0755',
       source  => 'puppet:///modules/g10k/generate_types.bash',
       require => File[$cache_dir],
       before  => File['/etc/g10k.yaml'],
     }
-  }else{
-    file{'/usr/local/bin/g10k_generate_types.bash':
+  } else {
+    file { '/usr/local/bin/g10k_generate_types.bash':
       ensure  => absent,
       require => File[$cache_dir],
       before  => File['/etc/g10k.yaml'],
     }
   }
 
-  file{'/etc/g10k.yaml':
+  file { '/etc/g10k.yaml':
     ensure  => file,
-    content => epp('g10k/g10k.yaml.epp',{
-      cache_dir                  => $cache_dir,
-      source_name                => $source_name,
-      source_remote              => $source_remote,
-      source_basedir             => $source_basedir,
-      use_cache_fallback         => $use_cache_fallback,
-      use_generate_types         => $use_generate_types,
-      additional_settings        => $additional_settings,
-      purge_levels               => $purge_levels,
-      purge_whitelist            => $purge_whitelist,
-      deployment_purge_whitelist => $deployment_purge_whitelist,
-      postrun                    => $postrun,
+    content => epp('g10k/g10k.yaml.epp', {
+        cache_dir                  => $cache_dir,
+        source_name                => $source_name,
+        source_remote              => $source_remote,
+        source_basedir             => $source_basedir,
+        use_cache_fallback         => $use_cache_fallback,
+        use_generate_types         => $use_generate_types,
+        additional_settings        => $additional_settings,
+        purge_levels               => $purge_levels,
+        purge_whitelist            => $purge_whitelist,
+        deployment_purge_whitelist => $deployment_purge_whitelist,
+        postrun                    => $postrun,
     }),
     require => File[$cache_dir],
   }
 
-  file{'/usr/local/bin/g10k.bash':
+  file { '/usr/local/bin/g10k.bash':
     ensure  => file,
     mode    => '0755',
-    content => epp('g10k/g10k.bash.epp',{
-      maxworker        => $maxworker,
-      maxextractworker => $maxextractworker,
-      is_quiet         => $is_quiet,
+    content => epp('g10k/g10k.bash.epp', {
+        maxworker        => $maxworker,
+        maxextractworker => $maxextractworker,
+        is_quiet         => $is_quiet,
     }),
     require => File['/etc/g10k.yaml'],
   }
