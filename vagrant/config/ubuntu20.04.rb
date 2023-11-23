@@ -1,4 +1,4 @@
 module MyVars
-  OS     = "ubuntu/focal64"
-  PUPPET = "scripts/upgrade-puppet.sh"
+  OS     = 'ubuntu/focal64'.freeze
+  PUPPET = 'scripts/upgrade-puppet.sh'.freeze
 end

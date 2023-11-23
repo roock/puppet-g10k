@@ -1,4 +1,4 @@
 module MyVars
-  OS     = "ubuntu/trusty64"
-  PUPPET = "scripts/upgrade-puppet.sh"
+  OS     = 'ubuntu/trusty64'.freeze
+  PUPPET = 'scripts/upgrade-puppet.sh'.freeze
 end
