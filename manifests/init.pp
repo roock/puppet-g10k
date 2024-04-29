@@ -32,6 +32,9 @@
 # @param is_quiet
 #   If true, prints no output.
 #
+# @param should_force
+#   If true, uses the --force flag to overwrite existing environments.
+#
 # @param use_cache_fallback
 #   If g10k is unable to connect to remote source, the local cache is used.
 #
@@ -74,6 +77,7 @@ class g10k (
   Integer                        $maxworker                  = 50,
   Integer                        $maxextractworker           = 20,
   Boolean                        $is_quiet                   = false,
+  Boolean                        $should_force               = false,
   Boolean                        $use_cache_fallback         = false,
   Optional[Hash[String, String]] $additional_settings        = undef,
   Optional[Array[String]]        $purge_levels               = undef,
@@ -162,6 +166,7 @@ class g10k (
         maxworker        => $maxworker,
         maxextractworker => $maxextractworker,
         is_quiet         => $is_quiet,
+        should_force     => $should_force,
     }),
     require => File['/etc/g10k.yaml'],
   }

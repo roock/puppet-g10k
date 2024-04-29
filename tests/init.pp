@@ -8,6 +8,7 @@ class { 'g10k':
   maxworker                  => 5,
   maxextractworker           => 5,
   is_quiet                   => false,
+  should_force               => false,
   use_cache_fallback         => true,
   deployment_purge_whitelist => ['.resource_types'],
   use_generate_types         => true,
