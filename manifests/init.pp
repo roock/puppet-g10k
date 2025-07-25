@@ -89,7 +89,12 @@ class g10k (
   Boolean                        $manage_git_package         = true,
 ) {
   $g10k_file = "g10k-${version}-linux-amd64.zip"
-  $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
+
+  if versioncmp($version, '0.9.9') {
+    $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-v${version}-linux-amd64.zip"
+  } else {
+    $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
+  }
 
   # manage dependencies
   if $manage_git_package {
