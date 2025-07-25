@@ -114,6 +114,7 @@ class g10k (
     proxy_server => $proxy_server,
     extract      => true,
     extract_path => '/usr/local/bin',
+    cleanup      => false,
   }
 
   # ensure the file has executable permissions
