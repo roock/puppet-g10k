@@ -92,8 +92,10 @@ class g10k (
 
   if versioncmp($version, '0.9.9') {
     $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-v${version}-linux-amd64.zip"
+    $filemode = '0775'
   } else {
     $g10k_url  = "https://github.com/xorpaul/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
+    $filemode = '0755'
   }
 
   # manage dependencies
@@ -112,13 +114,12 @@ class g10k (
     proxy_server => $proxy_server,
     extract      => true,
     extract_path => '/usr/local/bin',
-    cleanup      => true,
   }
 
   # ensure the file has executable permissions
   file { '/usr/local/bin/g10k':
     ensure  => file,
-    mode    => '0755',
+    mode    => $filemode,
     require => Archive["/usr/local/share/g10k/${g10k_file}"],
   }
 
