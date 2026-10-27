@@ -88,21 +88,33 @@ class g10k (
   Boolean                        $use_generate_types         = false,
   Boolean                        $manage_git_package         = true,
 ) {
-  $g10k_file = "g10k-${version}-linux-amd64.zip"
+  # since 0.10.0 g10k is released as a tar.gz archive instead of a zip archive
+  $is_targz = versioncmp($version, '0.10.0') >= 0
 
-  if versioncmp($version, '0.9.9') {
+  if $is_targz {
+    $g10k_file = "g10k_${version}_linux_amd64.tar.gz"
+    $g10k_url  = "https://github.com/voxpupuli/g10k/releases/download/v${version}/${g10k_file}"
+    $filemode  = '0755'
+  } elsif versioncmp($version, '0.9.9') {
+    $g10k_file = "g10k-${version}-linux-amd64.zip"
     $g10k_url  = "https://github.com/voxpupuli/g10k/releases/download/v${version}/g10k-v${version}-linux-amd64.zip"
-    $filemode = '0775'
+    $filemode  = '0775'
   } else {
+    $g10k_file = "g10k-${version}-linux-amd64.zip"
     $g10k_url  = "https://github.com/voxpupuli/g10k/releases/download/v${version}/g10k-linux-amd64.zip"
-    $filemode = '0755'
+    $filemode  = '0755'
   }
 
   # manage dependencies
+  $base_packages = $is_targz ? {
+    true    => ['wget'],
+    default => ['wget','unzip'],
+  }
+
   if $manage_git_package {
-    $required_packages = ['wget','unzip','git']
+    $required_packages = $base_packages + ['git']
   } else {
-    $required_packages = ['wget','unzip']
+    $required_packages = $base_packages
   }
 
   ensure_packages($required_packages)
